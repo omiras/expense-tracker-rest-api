@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // Valid categories in English
-const validCategories = ['Food', 'Leisure', 'Electronics', 'Services', 'Clothing', 'Health', 'Others'];
+const validCategories = ['Food', 'Leisure', 'Electronics', 'Services', 'Clothing', 'Health', 'Pets', 'Others'];
 
 /**
  * Read the expenses from data/expenses.json file
@@ -45,12 +45,18 @@ const getNextId = (expenses) => {
 
 // Iteración 1
 app.get('/api/expenses', (req, res) => {
-  res.status(501).json({ error: 'Not implemented' });
+  // Cargar los gastos
+  const expenses = readExpenses();
+
+  // Devolvemos el JSON
+  res.status(200).json(expenses);
+
 });
 
 // Iteración 1b
 app.get('/api/categories', (req, res) => {
-  res.status(501).json({ error: 'Not implemented' });
+  // Devolvemos el array de categorías directamente
+  res.status(200).json(validCategories);
 });
 
 
