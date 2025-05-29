@@ -55,16 +55,23 @@ app.post('/api/expenses', (req, res) => {
   if (!description || !amount || !category) {
     return res.status(400).json({ error: 'All fields are required' });
   }
+  if (!categories.includes(category)) {
+    return res.status(400).json({ error: 'Invalid category' });
+  }
+  if (typeof amount !== 'number' || isNaN(amount) || amount < 0) {
+    return res.status(400).json({ error: 'Amount must be a positive number' });
+  }
+  if (description.length > 40) {
+    return res.status(400).json({ error: 'Description must be 40 characters or less' });
+  }
 
   const expenses = readExpenses();
-
   const newExpense = {
     id: getNextId(expenses),
     description,
-    amount: parseFloat(amount),
+    amount,
     category
   };
-
   expenses.push(newExpense);
   saveExpenses(expenses);
   res.status(201).json(newExpense);
@@ -73,16 +80,21 @@ app.post('/api/expenses', (req, res) => {
 app.put('/api/expenses/:id', (req, res) => {
   const id = parseInt(req.params.id);
   const { description, amount, category } = req.body;
-
   const expenses = readExpenses();
   const expense = expenses.find(exp => exp.id === id);
-
   if (!expense) return res.status(404).json({ error: 'Expense not found' });
-
+  if (category && !categories.includes(category)) {
+    return res.status(400).json({ error: 'Invalid category' });
+  }
+  if (amount !== undefined && (typeof amount !== 'number' || isNaN(amount) || amount < 0)) {
+    return res.status(400).json({ error: 'Amount must be a positive number' });
+  }
+  if (description && description.length > 40) {
+    return res.status(400).json({ error: 'Description must be 40 characters or less' });
+  }
   if (description) expense.description = description;
-  if (amount) expense.amount = parseFloat(amount);
+  if (amount !== undefined) expense.amount = amount;
   if (category) expense.category = category;
-
   saveExpenses(expenses);
   res.json(expense);
 });

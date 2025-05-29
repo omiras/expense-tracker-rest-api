@@ -121,10 +121,31 @@
     form.addEventListener('submit', async e => {
       e.preventDefault();
       const id = document.getElementById('expenseId').value;
+      const description = document.getElementById('description').value;
+      const amount = parseFloat(document.getElementById('amount').value);
+      const category = document.getElementById('category').value;
+
+      if (!description || !category || isNaN(amount)) {
+        alert('Todos los campos son obligatorios');
+        return;
+      }
+      if (description.length > 40) {
+        alert('La descripción no puede superar los 40 caracteres');
+        return;
+      }
+      if (amount < 0) {
+        alert('La cantidad debe ser un número positivo');
+        return;
+      }
+      if (!Array.from(categorySelect.options).some(opt => opt.value === category && category !== '')) {
+        alert('La categoría seleccionada no es válida');
+        return;
+      }
+
       const body = {
-        description: document.getElementById('description').value,
-        amount: parseFloat(document.getElementById('amount').value),
-        category: document.getElementById('category').value
+        description,
+        amount,
+        category
       };
 
       const method = id ? 'PUT' : 'POST';
