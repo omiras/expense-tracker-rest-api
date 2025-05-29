@@ -45,69 +45,27 @@ const getNextId = (expenses) => {
 };
 
 app.get('/api/expenses', (req, res) => {
-  const expenses = readExpenses();
-  res.json(expenses);
+  res.status(501).json({ error: 'Not implemented' });
 });
 
 app.post('/api/expenses', (req, res) => {
-  const { description, amount, category } = req.body;
-
-  if (!description || !amount || !category) {
-    return res.status(400).json({ error: 'All fields are required' });
-  }
-
-  const expenses = readExpenses();
-
-  const newExpense = {
-    id: getNextId(expenses),
-    description,
-    amount: parseFloat(amount),
-    category
-  };
-
-  expenses.push(newExpense);
-  saveExpenses(expenses);
-  res.status(201).json(newExpense);
+  res.status(501).json({ error: 'Not implemented' });
 });
 
 app.put('/api/expenses/:id', (req, res) => {
-  const id = parseInt(req.params.id);
-  const { description, amount, category } = req.body;
-
-  const expenses = readExpenses();
-  const expense = expenses.find(exp => exp.id === id);
-
-  if (!expense) return res.status(404).json({ error: 'Expense not found' });
-
-  if (description) expense.description = description;
-  if (amount) expense.amount = parseFloat(amount);
-  if (category) expense.category = category;
-
-  saveExpenses(expenses);
-  res.json(expense);
+  res.status(501).json({ error: 'Not implemented' });
 });
 
 app.delete('/api/expenses/:id', (req, res) => {
-  const id = parseInt(req.params.id);
-  const expenses = readExpenses();
-  const updatedExpenses = expenses.filter(exp => exp.id !== id);
-
-  if (updatedExpenses.length === expenses.length) {
-    return res.status(404).json({ error: 'Expense not found' });
-  }
-
-  saveExpenses(updatedExpenses);
-  res.status(204).end();
+  res.status(501).json({ error: 'Not implemented' });
 });
 
 app.get('/api/expenses/summary', (req, res) => {
-  const expenses = readExpenses();
-  const total = expenses.reduce((acc, expense) => acc + expense.amount, 0);
-  res.json({ total });
+  res.status(501).json({ error: 'Not implemented' });
 });
 
 app.get('/api/categories', (req, res) => {
-  res.json(categories);
+  res.status(501).json({ error: 'Not implemented' });
 });
 
 app.listen(PORT, () => {
