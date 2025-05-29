@@ -22,11 +22,5 @@
     "description": "Electricity bill",
     "amount": 87.3,
     "category": "Utilities"
-  },
-  {
-    "id": 5,
-    "description": "Lectura de cartas",
-    "amount": 15,
-    "category": "Esoterismo"
   }
 ]
