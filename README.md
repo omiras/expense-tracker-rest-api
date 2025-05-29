@@ -55,10 +55,6 @@ Cuando implementes correctamente todos los endpoints podrás probar la aplicaci�
 ["Food", "Leisure", "Electronics", "Utilities", "Clothing", "Health", "Other"]
 ```
 
-**Errores:**
-- Si se accede a una ruta inexistente, responde con status `404` y `{ "error": "Not found" }`.
-- Si el método HTTP no es válido para el endpoint, responde con status `405` y `{ "error": "Method not allowed" }`.
-
 **Pista:** Devuelve directamente el array `categories` ya definido en `index.js` usando `res.json(categories)`.
 
 ---
@@ -88,9 +84,8 @@ Cuando implementes correctamente todos los endpoints podrás probar la aplicaci�
 
 **Errores:**
 - Si falta algún campo, responde con status `400` y `{ "error": "All fields are required" }`.
+- Si algún campo es inválido, responde con status `400` y 
 - Si la categoría no es válida, responde con status `400` y `{ "error": "Invalid category" }`.
-- Si se accede a una ruta inexistente, responde con status `404` y `{ "error": "Not found" }`.
-- Si el método HTTP no es válido para el endpoint, responde con status `405` y `{ "error": "Method not allowed" }`.
 
 **Pista:**
 - Usa la función `readExpenses()` para obtener el array actual de gastos.
@@ -127,14 +122,12 @@ No puedes usar el navegador para hacer una petición POST, PUT o DELETE. Necesit
 ```
 
 **Errores:**
-- Si el gasto no existe, responde con status `404` y `{ "error": "Expense not found" }`.
+- Si el id del gasto no existe, responde con status `404` y `{ "error": "Expense not found" }`.
 - Si los datos son inválidos, responde con status `400`.
-- Si se accede a una ruta inexistente, responde con status `404` y `{ "error": "Not found" }`.
-- Si el método HTTP no es válido para el endpoint, responde con status `405` y `{ "error": "Method not allowed" }`.
 
 **Pista:**
 - Usa `readExpenses()` para obtener el array.
-- Busca el gasto por id (`expenses.find(exp => exp.id === id)`).
+- Busca el gasto por id usando el método de array _find_.
 - Actualiza solo los campos enviados.
 - Guarda el array actualizado con `saveExpenses(expenses)`.
 
@@ -154,8 +147,6 @@ No puedes usar el navegador para hacer una petición POST, PUT o DELETE. Necesit
 
 **Errores:**
 - Si el gasto no existe, responde con status `404` y `{ "error": "Expense not found" }`.
-- Si se accede a una ruta inexistente, responde con status `404` y `{ "error": "Not found" }`.
-- Si el método HTTP no es válido para el endpoint, responde con status `405` y `{ "error": "Method not allowed" }`.
 
 **Pista:**
 - Usa `readExpenses()` para obtener el array.
@@ -178,11 +169,10 @@ No puedes usar el navegador para hacer una petición POST, PUT o DELETE. Necesit
 
 **Errores:**
 - Si se accede a una ruta inexistente, responde con status `404` y `{ "error": "Not found" }`.
-- Si el método HTTP no es válido para el endpoint, responde con status `405` y `{ "error": "Method not allowed" }`.
 
 **Pista:**
 - Usa `readExpenses()` para obtener el array.
-- Suma el campo `amount` de todos los gastos usando `reduce`.
+- Suma el campo `amount` de todos los gastos usando el método de array `reduce`.
 
 ---
 
