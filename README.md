@@ -65,7 +65,7 @@ Cuando implementes correctamente todos los endpoints podrás probar la aplicaci�
 
 - El endpoint debe estar en la ruta `/api/expenses` y responder a peticiones POST.
 - Debe recibir un objeto JSON con los campos `description`, `amount` y `category`.
-- Debe añadir el gasto al array y guardarlo en el fichero.
+- Debe añadir el gasto al array y guardarlo en el fichero. Abre el fichero _expenses.json_ para verificar que se ha añadido el nuevo gasto.
 - Devuelve el objeto creado (incluyendo el id).
 
 **Ejemplo de body:**
@@ -96,6 +96,10 @@ Cuando implementes correctamente todos los endpoints podrás probar la aplicaci�
 ### ¿Cómo probar este endpoint?
 
 No puedes usar el navegador para hacer una petición POST, PUT o DELETE. Necesitas un plugin como [Thunderclient](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client)
+
+### Ejemplo POST correcto
+
+![Post OK](https://oscarm.tinytake.com/media/176e2b1?filename=1748528867096_TinyTake29-05-2025-04-27-16_638841256611451423.png&sub_type=thumbnail_preview&type=attachment&width=1199&height=425)
 
 ---
 
