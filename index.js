@@ -23,7 +23,11 @@ const categories = [
   'Other'
 ];
 
-// To read the JSON file
+/**
+ * Read the expenses from data/expenses.json file
+ * 
+ * @returns An array with all the expenses as objects
+ */
 const readExpenses = () => {
   try {
     const data = fs.readFileSync(expensesFilePath, 'utf8');
@@ -33,7 +37,11 @@ const readExpenses = () => {
   }
 };
 
-// Save the array of expenses to the JSON file
+/**
+ * Store the expenses in a JSON file
+ * 
+ * @param {array} expenses Array of objects with the expenses to store
+ */
 const saveExpenses = (expenses) => {
   fs.writeFileSync(expensesFilePath, JSON.stringify(expenses, null, 2));
 };
@@ -44,27 +52,35 @@ const getNextId = (expenses) => {
   return ids.length ? Math.max(...ids) + 1 : 1;
 };
 
+
+// Iteración 1
 app.get('/api/expenses', (req, res) => {
   res.status(501).json({ error: 'Not implemented' });
 });
 
+// Iteración 1b
+app.get('/api/categories', (req, res) => {
+  res.status(501).json({ error: 'Not implemented' });
+});
+
+
+// Iteración 2
 app.post('/api/expenses', (req, res) => {
   res.status(501).json({ error: 'Not implemented' });
 });
 
+// Iteración 3
 app.put('/api/expenses/:id', (req, res) => {
   res.status(501).json({ error: 'Not implemented' });
 });
 
+// Iteración 4
 app.delete('/api/expenses/:id', (req, res) => {
   res.status(501).json({ error: 'Not implemented' });
 });
 
+// Iteración 5
 app.get('/api/expenses/summary', (req, res) => {
-  res.status(501).json({ error: 'Not implemented' });
-});
-
-app.get('/api/categories', (req, res) => {
   res.status(501).json({ error: 'Not implemented' });
 });
 
