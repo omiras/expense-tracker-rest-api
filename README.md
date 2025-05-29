@@ -4,6 +4,14 @@ Este proyecto consiste en implementar una API REST para la gestión de gastos. E
 
 Este proyecto esta basado en [este](https://roadmap.sh/projects/expense-tracker) y [este otro](https://roadmap.sh/projects/expense-tracker-api) proyecto de roadmap.sh
 
+## Los gastos
+
+Los gastos se representan por 3 campos
+
+- Una descripción que es como mucho de 64 carácteres
+- Una cantidad de dinero que debe número positivo
+- Una categoría válida (el array validCategories en index.js contiene todas las categorías válidas)
+
 ## Setup
 
 Instala las dependencias con:
@@ -84,7 +92,7 @@ Cuando implementes correctamente todos los endpoints podrás probar la aplicaci�
 
 **Errores:**
 - Si falta algún campo, responde con status `400` y `{ "error": "All fields are required" }`.
-- Si algún campo es inválido, responde con status `400` y 
+- Si algún campo es inválido, responde con status `400` e indicando el campo inválido (ver pantallazo más abajo)
 - Si la categoría no es válida, responde con status `400` y `{ "error": "Invalid category" }`.
 
 **Pista:**
@@ -100,6 +108,10 @@ No puedes usar el navegador para hacer una petición POST, PUT o DELETE. Necesit
 ### Ejemplo POST correcto
 
 ![Post OK](https://oscarm.tinytake.com/media/176e2b1?filename=1748528867096_TinyTake29-05-2025-04-27-16_638841256611451423.png&sub_type=thumbnail_preview&type=attachment&width=1199&height=425)
+
+### Ejemplo de POST incorrecto
+
+![Post KO](https://oscarm.tinytake.com/media/176e2c2?filename=1748529282392_TinyTake29-05-2025-04-34-17_638841260803441012.png&sub_type=thumbnail_preview&type=attachment&width=1198&height=427)
 
 ---
 
