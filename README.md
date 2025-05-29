@@ -8,7 +8,7 @@ Este proyecto esta basado en [este](https://roadmap.sh/projects/expense-tracker)
 
 Los gastos se representan por 3 campos
 
-- Una descripción que es como mucho de 64 carácteres
+- Una descripción que es como mucho de 40 carácteres
 - Una cantidad de dinero que debe número positivo
 - Una categoría válida (el array validCategories en index.js contiene todas las categorías válidas)
 
