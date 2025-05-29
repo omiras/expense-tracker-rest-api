@@ -196,6 +196,8 @@ No puedes usar el navegador para hacer una petición POST, PUT o DELETE. Necesit
 
 Abre ahora la aplicación Web que consume esta API en http://localhost:3000. Si has implementado correctamente todos los endpoints, esta debería ser enteramente funcional.
 
+![](https://oscarm.tinytake.com/media/176e31b?filename=1748531009198_TinyTake29-05-2025-05-03-24_638841278069784140.png&sub_type=thumbnail_preview&type=attachment&width=1198&height=635)
+
 ## Errores y Seguridad
 
 - Si se accede a una ruta inexistente, responde con status `404` y `{ "error": "Not found" }`.
