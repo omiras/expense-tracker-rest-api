@@ -62,7 +62,52 @@ app.get('/api/categories', (req, res) => {
 
 // Iteración 2
 app.post('/api/expenses', (req, res) => {
-  res.status(501).json({ error: 'Not implemented' });
+
+  // Vamos a obtener todos los campos de req.body
+  const {description, amount, category } = req.body;
+  // const description = req.body.description;
+  // const amount = req.body.amount
+  // const category = req.body.category
+
+  // En el caso que nos intenten poner información inválida bien sea por que intentan romper algo o por error del programador, debemos defendernos
+  if (!description || !amount || !category) { // FALTA comprobar amount y category
+    return res.status(400).json({error: "All fields are required"});
+  }
+
+  // Comprobar valores invalidos
+  if (amount < 0) {
+    return res.status(400).json({error: "Amount must be a positive number"});
+  }
+
+  // Description must be shorted than 40 characters
+  if (description.length > 40) {
+        return res.status(400).json({error: "Description must be 40 character max long"});
+  }
+
+  // Check if category is valid
+  if (!validCategories.includes(category)) {
+        return res.status(400).json({error: `Category ${category} is invalid`});
+  }
+
+  // cargar todos los gastos
+  let expenses = readExpenses();
+
+  // crear nuevo objeto
+  const newExpense = {
+    id: getNextId(expenses),
+    description,
+    amount,
+    category
+  }
+
+  // Añadir el objeto al array de gastos
+  expenses.push(newExpense);
+  
+  // Actualizar el fichero JSON
+  saveExpenses(expenses);
+  
+  // respondemos al cliente con el gasto que acabmos de crear
+  res.status(201).json(newExpense);
 });
 
 // Iteración 3

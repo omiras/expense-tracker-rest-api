@@ -28,5 +28,35 @@
     "description": "Book",
     "amount": 20,
     "category": "Leisure"
+  },
+  {
+    "id": 6,
+    "description": "Battery",
+    "amount": "30",
+    "category": "Electronics"
+  },
+  {
+    "id": 7,
+    "description": "Bottle",
+    "amount": 1,
+    "category": "Others"
+  },
+  {
+    "id": 8,
+    "description": "Bottle",
+    "amount": 1,
+    "category": "Others"
+  },
+  {
+    "id": 9,
+    "description": "test",
+    "amount": 22,
+    "category": "Food"
+  },
+  {
+    "id": 10,
+    "description": "Magazine",
+    "amount": 20,
+    "category": "Leisure"
   }
 ]
