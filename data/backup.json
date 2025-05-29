@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "description": "Supermarket shopping",
+    "amount": 45.9,
+    "category": "Food"
+  },
+  {
+    "id": 2,
+    "description": "Cinema",
+    "amount": 12,
+    "category": "Leisure"
+  },
+  {
+    "id": 3,
+    "description": "Bluetooth Headphones",
+    "amount": 59.99,
+    "category": "Electronics"
+  },
+  {
+    "id": 4,
+    "description": "Electricity bill",
+    "amount": 87.3,
+    "category": "Utilities"
+  }
+]

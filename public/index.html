@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Control de Gastos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
+    rel="stylesheet"
+  >
+</head>
+<body class="bg-light">
+  <div class="container my-5">
+    <h1 class="mb-4 text-center">Control de Gastos</h1>
+
+    <!-- Formulario -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <form id="expenseForm">
+          <input type="hidden" id="expenseId">
+          <div class="row g-2">
+            <div class="col-md-4">
+              <input type="text" id="description" class="form-control" placeholder="Descripción" required>
+            </div>
+            <div class="col-md-2">
+              <input type="number" step="0.01" id="amount" class="form-control" placeholder="Cantidad (€)" required>
+            </div>
+            <div class="col-md-3">
+              <select id="category" class="form-select" required>
+                <option value="">Categoría</option>
+              </select>
+            </div>
+            <div class="col-md-3 d-grid">
+              <button type="submit" class="btn btn-primary">Guardar Gasto</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Tabla de gastos -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title">Lista de Gastos</h5>
+        <table class="table table-striped" id="expensesTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Descripción</th>
+              <th>Categoría</th>
+              <th>Cantidad (€)</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Resumen -->
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Resumen</h5>
+        <ul class="list-group" id="summaryList"></ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = '/api/expenses';
+    const tableBody = document.querySelector('#expensesTable tbody');
+    const summaryList = document.querySelector('#summaryList');
+    const form = document.getElementById('expenseForm');
+    const categorySelect = document.getElementById('category');
+
+    const loadExpenses = async () => {
+      const res = await fetch(API_URL);
+      const data = await res.json();
+      tableBody.innerHTML = '';
+      data.forEach(exp => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${exp.id}</td>
+          <td>${exp.description}</td>
+          <td>${exp.category}</td>
+          <td>${exp.amount.toFixed(2)}</td>
+          <td>
+            <button class="btn btn-sm btn-warning me-1" onclick='editExpense(${JSON.stringify(exp)})'>Editar</button>
+            <button class="btn btn-sm btn-danger" onclick='deleteExpense(${exp.id})'>Eliminar</button>
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+    };
+
+    const loadSummary = async () => {
+      const res = await fetch(`${API_URL}/summary`);
+      const data = await res.json();
+      summaryList.innerHTML = '';
+      const li = document.createElement('li');
+      li.className = 'list-group-item d-flex justify-content-between align-items-center';
+      li.innerHTML = `
+        <span>Total</span>
+        <span class="badge bg-primary rounded-pill">${data.total.toFixed(2)} €</span>
+      `;
+      summaryList.appendChild(li);
+    };
+
+    const loadCategories = async () => {
+      const res = await fetch('/api/categories');
+      const categories = await res.json();
+      categorySelect.innerHTML = '<option value="">Categoría</option>';
+      categories.forEach(cat => {
+        const option = document.createElement('option');
+        option.value = cat;
+        option.textContent = cat;
+        categorySelect.appendChild(option);
+      });
+    };
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const id = document.getElementById('expenseId').value;
+      const body = {
+        description: document.getElementById('description').value,
+        amount: parseFloat(document.getElementById('amount').value),
+        category: document.getElementById('category').value
+      };
+
+      const method = id ? 'PUT' : 'POST';
+      const url = id ? `${API_URL}/${id}` : API_URL;
+
+      await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+
+      form.reset();
+      document.getElementById('expenseId').value = '';
+      loadExpenses();
+      loadSummary();
+    });
+
+    const editExpense = (expense) => {
+      document.getElementById('expenseId').value = expense.id;
+      document.getElementById('description').value = expense.description;
+      document.getElementById('amount').value = expense.amount;
+      document.getElementById('category').value = expense.category;
+    };
+
+    const deleteExpense = async (id) => {
+      await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+      loadExpenses();
+      loadSummary();
+    };
+
+    loadExpenses();
+    loadSummary();
+    loadCategories();
+  </script>
+</body>
+</html>
